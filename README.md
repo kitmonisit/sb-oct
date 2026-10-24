@@ -51,6 +51,28 @@ cp .env.example .env
 Environment files are not loaded automatically. Use `uv run --env-file .env` to load
 the dev environment explicitly.
 
+## Logging
+
+Console (stderr) and `LOG_FILE` use the same format, with no milliseconds and a
+three-letter level shorthand:
+
+```text
+2026-10-24 20:33:18 | INF | second_brain.app:main:29 - Hello from second_brain!
+```
+
+| Level      | Shorthand |
+|------------|-----------|
+| `TRACE`    | `TRC`     |
+| `DEBUG`    | `DBG`     |
+| `INFO`     | `INF`     |
+| `SUCCESS`  | `SUC`     |
+| `WARNING`  | `WRN`     |
+| `ERROR`    | `ERR`     |
+| `CRITICAL` | `CRT`     |
+
+Custom levels keep their full name. Console output is colored by level when
+attached to a terminal; the log file is plain text.
+
 ## Testing
 
 Run tests:
