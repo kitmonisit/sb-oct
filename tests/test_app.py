@@ -5,7 +5,13 @@ import re
 import pytest
 from loguru import logger
 
-from second_brain.app import configure_logging, main, stderr_format
+from second_brain.app import (
+    configure_logging,
+    log_dir,
+    log_file_path,
+    main,
+    stderr_format,
+)
 
 STDERR_LINE = re.compile(
     r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} \| INF \| "
@@ -103,3 +109,63 @@ def test_log_file_format_unchanged():
         r"second_brain\.app:main:\d+ - Hello from second_brain!",
         content,
     ), content
+
+
+def test_log_dir_is_under_home(tmp_home):
+    assert log_dir() == tmp_home / ".second_brain"
+
+
+@pytest.mark.parametrize("value", [None, ""])
+def test_log_file_path_default(tmp_home, monkeypatch, value):
+    if value is not None:
+        monkeypatch.setenv("LOG_FILE", value)
+    assert log_file_path() == tmp_home / ".second_brain" / "app.log"
+
+
+@pytest.mark.parametrize("value", ["custom.log", "logs/dev.log"])
+def test_log_file_path_relative_resolves_under_log_dir(tmp_home, monkeypatch, value):
+    monkeypatch.setenv("LOG_FILE", value)
+    assert log_file_path() == tmp_home / ".second_brain" / value
+
+
+def test_log_file_path_absolute_used_as_is(tmp_home, tmp_path, monkeypatch):
+    absolute = tmp_path / "elsewhere" / "abs.log"
+    monkeypatch.setenv("LOG_FILE", str(absolute))
+    assert log_file_path() == absolute
+
+
+def test_log_file_path_expands_tilde(tmp_home, monkeypatch):
+    monkeypatch.setenv("LOG_FILE", "~/custom.log")
+    assert log_file_path() == tmp_home / "custom.log"
+
+
+def test_configure_logging_writes_to_default_path_regardless_of_cwd(
+    tmp_home, tmp_path, monkeypatch
+):
+    cwd = tmp_path / "cwd"
+    cwd.mkdir()
+    monkeypatch.chdir(cwd)
+    configure_logging()
+    logger.info("marker")
+    logger.remove()
+    assert "marker" in (tmp_home / ".second_brain" / "app.log").read_text()
+    assert list(cwd.iterdir()) == []
+
+
+def test_configure_logging_creates_missing_log_dir(tmp_home):
+    assert not (tmp_home / ".second_brain").exists()
+    configure_logging()
+    logger.remove()
+    assert (tmp_home / ".second_brain").is_dir()
+
+
+def test_configure_logging_absolute_path_into_missing_dir(
+    tmp_home, tmp_path, monkeypatch
+):
+    absolute = tmp_path / "elsewhere" / "nested" / "abs.log"
+    monkeypatch.setenv("LOG_FILE", str(absolute))
+    configure_logging()
+    logger.info("abs marker")
+    logger.remove()
+    assert absolute.is_file()
+    assert not (tmp_home / ".second_brain").exists()

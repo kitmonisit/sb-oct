@@ -52,7 +52,7 @@ cp .env.example .env
 ```
 
 - `LOG_LEVEL` — default: `INFO`. Set to `DEBUG` in `.env` for verbose console output.
-- `LOG_FILE` — default: `app.log`. Path to the log file.
+- `LOG_FILE` — default: `~/.second_brain/app.log`. Path to the log file. A relative path resolves under `~/.second_brain/` (not the current directory), an absolute path is used as-is, and the directory is created automatically. Note the leading dot: logs go to the hidden `~/.second_brain/`, while notes live in `~/second_brain/`.
 - `SECOND_BRAIN_DIR` — default: `~/second_brain/`. Directory where notes are stored.
 
 Note that `uv run --env-file .env` loads the dev environment explicitly (no auto-loading).

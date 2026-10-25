@@ -70,11 +70,15 @@ lines and errors go to stderr, so stdout can be piped or captured safely.
 
 ## Environment Variables
 
-| Variable           | Default            | Description                        |
-|--------------------|--------------------|------------------------------------|
-| `LOG_LEVEL`        | `INFO`             | Console log level (DEBUG, INFO, …) |
-| `LOG_FILE`         | `app.log`          | Path to the log file               |
-| `SECOND_BRAIN_DIR` | `~/second_brain/`  | Directory where notes are stored   |
+| Variable           | Default                    | Description                        |
+|--------------------|----------------------------|------------------------------------|
+| `LOG_LEVEL`        | `INFO`                     | Console log level (DEBUG, INFO, …) |
+| `LOG_FILE`         | `~/.second_brain/app.log`  | Path to the log file               |
+| `SECOND_BRAIN_DIR` | `~/second_brain/`          | Directory where notes are stored   |
+
+A relative `LOG_FILE` resolves under `~/.second_brain/`, not the current
+directory, and an absolute path is used as-is; the log directory is created
+automatically.
 
 Copy `.env.example` to `.env` for development defaults, then run with `uv run --env-file .env`.
 

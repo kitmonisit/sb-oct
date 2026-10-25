@@ -840,7 +840,7 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
     <div class="knobs">
       <div class="knob"><div class="ki">📁</div><h3>SECOND_BRAIN_DIR</h3><div class="def">default: <code>~/second_brain/</code></div><p>Where notes live. It's read fresh on every command, so <code>SECOND_BRAIN_DIR=/tmp/scratch second_brain list</code> just works.</p></div>
       <div class="knob"><div class="ki">🔊</div><h3>LOG_LEVEL</h3><div class="def">default: <code>INFO</code></div><p>How chatty stderr is. <code>DEBUG</code> shows the extra detail. Try the dropdown in the playground.</p></div>
-      <div class="knob"><div class="ki">📜</div><h3>LOG_FILE</h3><div class="def">default: <code>app.log</code></div><p>Every DEBUG+ line also goes to this file. It rotates at 50 KB. The path is relative to wherever you run the command.</p></div>
+      <div class="knob"><div class="ki">📜</div><h3>LOG_FILE</h3><div class="def">default: <code>~/.second_brain/app.log</code></div><p>Every DEBUG+ line also goes to this file. It rotates at 50 KB. A relative path lands in <code>~/.second_brain/</code>, wherever you run the command, and an absolute path is used as-is.</p></div>
     </div>
     <div class="streams">
       <div class="stream o"><b>stdout 🟢</b><p>The <em>answer</em>: a note's path, the list, or a note's text. Safe to pipe: <code>second_brain show 1 | less</code></p></div>
@@ -1243,12 +1243,6 @@ Options:
   // ---------------------------------------------------------------- source explorer
   const FILES = [
     { id: "src", type: "folder", name: "src/", depth: 0 },
-    { id: "applog", name: "app.log", depth: 1, icon: "🪵", lines: 1, color: "show", badge: "stray",
-      role: "Leftover log file", path: "src/app.log",
-      summary: "Not code. A log file that got written when the app ran with <code>src/</code> as the working directory, because <code>LOG_FILE</code> defaults to the relative path <code>app.log</code>. It's from before the log tidy-up (it still has milliseconds and the long <code>INFO</code> name). <code>*.log</code> is gitignored, so it's safe to delete.",
-      pieces: [["2026-10-24 20:32:28.685 | INFO | …", "the single line it contains: the old “Hello from second_brain!” greeting"]],
-      talks: [["app", "written by app.py's file sink"]],
-      peek: `<span class="cm">2026-10-24 20:32:28.685 | INFO     | second_brain.app:main:29 - Hello from second_brain!</span>` },
     { id: "pkg", type: "folder", name: "second_brain/", depth: 1 },
     { id: "__init__", name: "__init__.py", depth: 2, icon: "📦", lines: 0, color: "violet",
       role: "Package marker", path: "src/second_brain/__init__.py",
@@ -1304,22 +1298,29 @@ Options:
     slug = re.<span class="fn">sub</span>(<span class="st">r"[^\\w\\s-]"</span>, <span class="st">""</span>, slug)
     slug = re.<span class="fn">sub</span>(<span class="st">r"[\\s-]+"</span>, <span class="st">"-"</span>, slug)
     <span class="kw">return</span> slug.<span class="fn">strip</span>(<span class="st">"-_"</span>) <span class="kw">or</span> <span class="st">"untitled"</span>` },
-    { id: "app", name: "app.py", depth: 2, icon: "🪵", lines: 67, color: "show",
+    { id: "app", name: "app.py", depth: 2, icon: "🪵", lines: 92, color: "show",
       role: "Logging setup", path: "src/second_brain/app.py",
-      summary: "Sets up <b>loguru</b> with two outputs. One is a compact, colourful stderr line with three-letter level names (<code>INF</code>, <code>WRN</code>, …) at <code>LOG_LEVEL</code>. The other is a detailed <code>LOG_FILE</code> at DEBUG that rotates at 50 KB. It also has the original “Hello” <code>main()</code> from the project scaffold, which the CLI doesn't use.",
+      summary: "Sets up <b>loguru</b> with two outputs. One is a compact, colourful stderr line with three-letter level names (<code>INF</code>, <code>WRN</code>, …) at <code>LOG_LEVEL</code>. The other is a detailed <code>LOG_FILE</code> at DEBUG that rotates at 50 KB and lives in <code>~/.second_brain/</code> by default, whatever directory you run from. It also has the original “Hello” <code>main()</code> from the project scaffold, which the CLI doesn't use.",
       pieces: [
         ["LEVEL_SHORT_NAMES", "TRACE→TRC, INFO→INF, WARNING→WRN …"],
         ["stderr_format(record)", "builds `time | LVL | module:func:line | message`"],
-        ["configure_logging()", "reads LOG_LEVEL / LOG_FILE, installs both sinks"],
+        ["log_dir()", "~/.second_brain, read fresh every call"],
+        ["log_file_path()", "LOG_FILE or app.log; relative paths land in log_dir()"],
+        ["configure_logging()", "reads LOG_LEVEL, creates the log folder, installs both sinks"],
         ["main()", "scaffold greeting wrapped in @logger.catch, not used by the CLI"],
       ],
       talks: [["log", "stderr + LOG_FILE"]],
-      peek: `<span class="kw">def</span> <span class="fn">configure_logging</span>():
+      peek: `<span class="kw">def</span> <span class="fn">log_file_path</span>():
+    log_file = <span class="fn">Path</span>(os.environ.<span class="fn">get</span>(<span class="st">"LOG_FILE"</span>) <span class="kw">or</span> <span class="st">"app.log"</span>).<span class="fn">expanduser</span>()
+    <span class="kw">return</span> <span class="fn">log_dir</span>() / log_file  <span class="cm"># absolute wins</span>
+
+<span class="kw">def</span> <span class="fn">configure_logging</span>():
     log_level = os.environ.<span class="fn">get</span>(<span class="st">"LOG_LEVEL"</span>, <span class="st">"INFO"</span>)
-    log_file = os.environ.<span class="fn">get</span>(<span class="st">"LOG_FILE"</span>, <span class="st">"app.log"</span>)
+    log_path = <span class="fn">log_file_path</span>()
+    log_path.parent.<span class="fn">mkdir</span>(parents=<span class="kw">True</span>, exist_ok=<span class="kw">True</span>)
     logger.<span class="fn">remove</span>()
     logger.<span class="fn">add</span>(sys.stderr, level=log_level, format=stderr_format)
-    logger.<span class="fn">add</span>(log_file, level=<span class="st">"DEBUG"</span>, rotation=<span class="st">"50 KB"</span>, retention=1)` },
+    logger.<span class="fn">add</span>(log_path, level=<span class="st">"DEBUG"</span>, rotation=<span class="st">"50 KB"</span>, retention=1)` },
   ];
   const byId = Object.fromEntries(FILES.map(f => [f.id, f]));
   const NAMES = { disk: "📁 notes folder", log: "📜 logs" };
@@ -1351,7 +1352,7 @@ Options:
     });
     const legend = document.createElement("div");
     legend.className = "tree-legend";
-    legend.textContent = "💡 About 320 lines in total. Start with cli.py, then notes.py.";
+    legend.textContent = "💡 About 350 lines in total. Start with cli.py, then notes.py.";
     treeEl.appendChild(legend);
   }
 
@@ -1365,7 +1366,7 @@ Options:
           ? `<button class="talk" data-go="${to}" title="${esc(why)}">→ ${byId[to].icon} ${byId[to].name}</button>`
           : `<span class="talk static" title="${esc(why)}">→ ${NAMES[to]}</span>`).join("")
       : `<span class="talk static">nobody, it just sits there 😌</span>`;
-    const usedBy = FILES.filter(o => o.talks && o.talks.some(([to]) => to === id) && o.id !== "applog");
+    const usedBy = FILES.filter(o => o.talks && o.talks.some(([to]) => to === id));
     const usedHtml = usedBy.length
       ? usedBy.map(o => `<button class="talk" data-go="${o.id}">← ${o.icon} ${o.name}</button>`).join("") : "";
     detailEl.innerHTML = `

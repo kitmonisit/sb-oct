@@ -28,10 +28,12 @@ flowchart LR
         cmd_show["show()"]
     end
 
-    subgraph app_mod["Logging — app.py · imports sys, os, loguru"]
+    subgraph app_mod["Logging — app.py · imports sys, os, pathlib, loguru"]
         direction LR
         fn_app_main["main()<br/>@logger.catch<br/>(no entry point calls it)"]
-        fn_configure["configure_logging()<br/>reads LOG_LEVEL, LOG_FILE"]
+        fn_configure["configure_logging()<br/>reads LOG_LEVEL"]
+        fn_log_file_path["log_file_path()<br/>reads LOG_FILE"]
+        fn_log_dir["log_dir()<br/>~/.second_brain"]
         fn_stderr_format["stderr_format()"]
         const_levels["LEVEL_SHORT_NAMES"]
     end
@@ -48,7 +50,7 @@ flowchart LR
         fn_slugify["slugify()"]
     end
 
-    log_sinks[("stderr · app.log")]
+    log_sinks[("stderr · ~/.second_brain/app.log")]
     notes_store[("notes directory<br/>YYYY-MM-DD-slug.md")]
 
     console_script ==> cli_group
@@ -61,6 +63,7 @@ flowchart LR
     cmd_new ==> fn_notes_dir & fn_create_note
 
     fn_app_main --> fn_configure --> fn_stderr_format --> const_levels
+    fn_configure --> fn_log_file_path --> fn_log_dir
     fn_create_note --> fn_split --> fn_clean
     fn_create_note --> fn_build_path --> fn_slugify
 
@@ -106,7 +109,7 @@ flowchart LR
     end
 
     group["<b>cli</b> group<br/>--help on the group and every command"]
-    setup_logs["configure_logging()<br/>reads LOG_LEVEL, LOG_FILE<br/>stderr at LOG_LEVEL · file at DEBUG"]
+    setup_logs["configure_logging()<br/>reads LOG_LEVEL, LOG_FILE<br/>stderr at LOG_LEVEL · file at DEBUG<br/>log file under ~/.second_brain/ by default"]
 
     run_uv --> run_script
     run_script --> group
@@ -173,7 +176,7 @@ flowchart LR
 |----------|---------|---------|
 | `SECOND_BRAIN_DIR` | `~/second_brain/` | `notes_dir()`, on every call |
 | `LOG_LEVEL` | `INFO` | `configure_logging()`, stderr sink only |
-| `LOG_FILE` | `app.log` | `configure_logging()`, file sink always logs at `DEBUG` |
+| `LOG_FILE` | `~/.second_brain/app.log` | `log_file_path()`, called by `configure_logging()`; relative paths resolve under `~/.second_brain/`, file sink always logs at `DEBUG` |
 
 A missing `TITLE` or `NUMBER`, or a `NUMBER` that is not an integer, is
 rejected by Click before any of these steps run (exit status 2).

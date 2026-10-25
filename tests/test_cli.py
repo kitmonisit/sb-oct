@@ -55,6 +55,16 @@ def test_cli_new_default_dir(tmp_path, monkeypatch):
     assert len(files) == 1
 
 
+def test_cli_new_leaves_no_log_in_cwd(tmp_home, tmp_note_dir, tmp_path, monkeypatch):
+    cwd = tmp_path / "cwd"
+    cwd.mkdir()
+    monkeypatch.chdir(cwd)
+    result = runner.invoke(cli, ["new", "Idea"])
+    assert result.exit_code == 0
+    assert list(cwd.iterdir()) == []
+    assert (tmp_home / ".second_brain" / "app.log").is_file()
+
+
 def test_cli_new_missing_title_shows_error():
     result = runner.invoke(cli, ["new"])
     assert result.exit_code != 0
