@@ -1,0 +1,2 @@
+- Before researching something with a year in the search term, use `date +Y%` to get the current year.
+- If WebFetch fails, (e.g. 403 error), fall back to curl to fetch the content.
