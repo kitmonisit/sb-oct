@@ -535,7 +535,7 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
       <span class="pill">📋 <code>list</code> numbers your notes</span>
       <span class="pill">👀 <code>show</code> reads one back</span>
     </div>
-    <p class="run-as">The command is just <code>sb</code>, short for <b>s</b>econd <b>b</b>rain.</p>
+    <p class="run-as">The command is just <code>second_brain</code>.</p>
   </div>
 </div>
 
@@ -549,21 +549,21 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
     <div class="help-layout">
       <div class="term">
         <div class="term-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="term-title">~ zsh</span></div>
-<pre><span class="t-prompt">$</span> sb --help
-<span class="t-head">Usage:</span> sb [OPTIONS] COMMAND [ARGS]...
+<pre><span class="t-prompt">$</span> second_brain --help
+<span class="t-head">Usage:</span> second_brain [OPTIONS] COMMAND [ARGS]...
 
-  sb -- capture and organise your thoughts.
+  second_brain -- capture and organise your thoughts.
 
   Notes are plain markdown files, stored in the directory named by the
   <span class="t-cyan">SECOND_BRAIN_DIR</span> environment variable (default: ~/second_brain/). Commands
   print their result on stdout; log lines go to stderr.
 
   Typical workflow:
-    sb new "Caching idea"     <span class="t-dim"># save a note, prints its path</span>
-    sb list                   <span class="t-dim"># numbered list, newest first</span>
-    sb show 1                 <span class="t-dim"># print note 1</span>
+    second_brain new "Caching idea"     <span class="t-dim"># save a note, prints its path</span>
+    second_brain list                   <span class="t-dim"># numbered list, newest first</span>
+    second_brain show 1                 <span class="t-dim"># print note 1</span>
 
-  Run `sb COMMAND --help` for details and examples.
+  Run `second_brain COMMAND --help` for details and examples.
 
 <span class="t-head">Options:</span>
   --help  Show this message and exit.
@@ -577,17 +577,17 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
       <div class="flow-strip">
         <div class="flow-step">
           <div class="num" style="background:var(--new-soft)">💡</div>
-          <div><h3>Have an idea</h3><p><code>sb new "Caching idea"</code> writes it to a dated markdown file.</p></div>
+          <div><h3>Have an idea</h3><p><code>second_brain new "Caching idea"</code> writes it to a dated markdown file.</p></div>
         </div>
         <div class="flow-arrow">↓</div>
         <div class="flow-step">
           <div class="num" style="background:var(--list-soft)">🔢</div>
-          <div><h3>Find it again</h3><p><code>sb list</code> gives every note a number, newest first.</p></div>
+          <div><h3>Find it again</h3><p><code>second_brain list</code> gives every note a number, newest first.</p></div>
         </div>
         <div class="flow-arrow">↓</div>
         <div class="flow-step">
           <div class="num" style="background:var(--show-soft)">📖</div>
-          <div><h3>Read it back</h3><p><code>sb show 1</code> prints that note. The number comes straight from <code>list</code>.</p></div>
+          <div><h3>Read it back</h3><p><code>second_brain show 1</code> prints that note. The number comes straight from <code>list</code>.</p></div>
         </div>
       </div>
     </div>
@@ -603,7 +603,7 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
           <span class="mv-slide">💡</span><span class="mv-arrow">➜</span><span class="mv-pop">📄</span><span class="mv-arrow">➜</span><span>📁</span>
           <div class="mv-label">2026-10-25-caching-idea.md</div>
         </div>
-        <div class="usage">sb new <span class="opt">--body TEXT</span> <span class="arg">TITLE</span></div>
+        <div class="usage">second_brain new <span class="opt">--body TEXT</span> <span class="arg">TITLE</span></div>
         <ul>
           <li>Saves <code>YYYY-MM-DD-&lt;slug&gt;.md</code> and prints its path.</li>
           <li>Never overwrites anything. A repeat title gets <code>-1</code>, <code>-2</code>, …</li>
@@ -612,9 +612,9 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
         </ul>
         <div class="ex-label">Try it ↓</div>
         <div class="ex-list">
-          <button class="ex" data-run='sb new "Caching idea"'>sb new "Caching idea"</button>
-          <button class="ex" data-run="sb new &quot;Caching idea&quot; --body $'Use an LRU.\n\nCheck limits.'">sb new "Caching idea" --body $'Use an LRU.\n\nCheck limits.'</button>
-          <button class="ex" data-run='cat draft.md | sb new "Draft" --body -'>cat draft.md | sb new "Draft" --body -</button>
+          <button class="ex" data-run='second_brain new "Caching idea"'>second_brain new "Caching idea"</button>
+          <button class="ex" data-run="second_brain new &quot;Caching idea&quot; --body $'Use an LRU.\n\nCheck limits.'">second_brain new "Caching idea" --body $'Use an LRU.\n\nCheck limits.'</button>
+          <button class="ex" data-run='cat draft.md | second_brain new "Draft" --body -'>cat draft.md | second_brain new "Draft" --body -</button>
         </div>
         <details class="help"><summary>new --help</summary><pre data-help="new"></pre></details>
       </article>
@@ -629,7 +629,7 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
           <span>📁</span><span class="mv-arrow">➜</span>
           <div class="mv-list"><span>1. 2026-10-25-tea.md</span><span>2. 2026-10-24-idea.md</span><span>3. 2026-10-20-todo.md</span></div>
         </div>
-        <div class="usage">sb list</div>
+        <div class="usage">second_brain list</div>
         <ul>
           <li>Prints the notes folder first, then one numbered line per note.</li>
           <li>Newest first: files are sorted by name, and names start with the date.</li>
@@ -638,7 +638,7 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
         </ul>
         <div class="ex-label">Try it ↓</div>
         <div class="ex-list">
-          <button class="ex" data-run="sb list">sb list</button>
+          <button class="ex" data-run="second_brain list">second_brain list</button>
         </div>
         <details class="help"><summary>list --help</summary><pre data-help="list"></pre></details>
       </article>
@@ -654,7 +654,7 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
             <div class="mv-page"># Caching idea<br>Use an LRU.<br><span style="opacity:.6">2026-10-25T09:12:00</span></div>
           </div>
         </div>
-        <div class="usage">sb show <span class="arg">NUMBER</span></div>
+        <div class="usage">second_brain show <span class="arg">NUMBER</span></div>
         <ul>
           <li><code>NUMBER</code> is the position from <code>list</code>. 1 is the newest.</li>
           <li>Prints the note's markdown on stdout.</li>
@@ -662,8 +662,8 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
         </ul>
         <div class="ex-label">Try it ↓</div>
         <div class="ex-list">
-          <button class="ex" data-run="sb show 1">sb show 1</button>
-          <button class="ex" data-run="sb show 99">sb show 99 <span style="opacity:.6">(oops)</span></button>
+          <button class="ex" data-run="second_brain show 1">second_brain show 1</button>
+          <button class="ex" data-run="second_brain show 99">second_brain show 99 <span style="opacity:.6">(oops)</span></button>
         </div>
         <details class="help"><summary>show --help</summary><pre data-help="show"></pre></details>
       </article>
@@ -676,7 +676,7 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
   <div class="wrap">
     <span class="kicker">② Have a go</span>
     <h2 class="section-title">Playground terminal</h2>
-    <p class="lede">A pretend <code>sb</code> that runs in your browser. Type a command or tap a chip. The folder on the right fills up as you go. Tap a note there to <code>show</code> it. Nothing touches your real disk.</p>
+    <p class="lede">A pretend <code>second_brain</code> that runs in your browser. Type a command or tap a chip. The folder on the right fills up as you go. Tap a note there to <code>show</code> it. Nothing touches your real disk.</p>
 
     <div class="play">
       <div class="term">
@@ -695,7 +695,7 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
         <div class="screen" id="screen" aria-live="polite"></div>
         <form class="prompt-row" id="promptForm" autocomplete="off">
           <span class="t-prompt mono">$</span>
-          <input id="cmdInput" spellcheck="false" placeholder='sb new "My brilliant idea"' aria-label="Command">
+          <input id="cmdInput" spellcheck="false" placeholder='second_brain new "My brilliant idea"' aria-label="Command">
           <button class="go" type="submit">Run ⏎</button>
         </form>
       </div>
@@ -712,16 +712,16 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
     </div>
 
     <div class="quick" id="quick">
-      <button class="chip help" data-run="sb --help"><b>--help</b></button>
-      <button class="chip list" data-run="sb list"><b>list</b> (before any notes)</button>
-      <button class="chip new" data-run='sb new "Caching idea"'><b>new</b> "Caching idea"</button>
-      <button class="chip new" data-run='sb new "Caching idea"'><b>new</b> "Caching idea" again</button>
-      <button class="chip new" data-run='sb new "Café ☕ plans!" -b "Try the oat latte."'><b>new</b> "Café ☕ plans!" -b …</button>
-      <button class="chip new" data-run='echo "Bring snacks." | sb new "Team offsite" --body -'>echo … | <b>new</b> --body -</button>
-      <button class="chip list" data-run="sb list"><b>list</b></button>
-      <button class="chip show" data-run="sb show 1"><b>show</b> 1</button>
-      <button class="chip show" data-run="sb show 42"><b>show</b> 42</button>
-      <button class="chip help" data-run="sb show --help"><b>show --help</b></button>
+      <button class="chip help" data-run="second_brain --help"><b>--help</b></button>
+      <button class="chip list" data-run="second_brain list"><b>list</b> (before any notes)</button>
+      <button class="chip new" data-run='second_brain new "Caching idea"'><b>new</b> "Caching idea"</button>
+      <button class="chip new" data-run='second_brain new "Caching idea"'><b>new</b> "Caching idea" again</button>
+      <button class="chip new" data-run='second_brain new "Café ☕ plans!" -b "Try the oat latte."'><b>new</b> "Café ☕ plans!" -b …</button>
+      <button class="chip new" data-run='echo "Bring snacks." | second_brain new "Team offsite" --body -'>echo … | <b>new</b> --body -</button>
+      <button class="chip list" data-run="second_brain list"><b>list</b></button>
+      <button class="chip show" data-run="second_brain show 1"><b>show</b> 1</button>
+      <button class="chip show" data-run="second_brain show 42"><b>show</b> 42</button>
+      <button class="chip help" data-run="second_brain show --help"><b>show --help</b></button>
     </div>
   </div>
 </section>
@@ -814,7 +814,7 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
         <path class="g-edge" data-e="cli app" d="M390,135 C430,135 430,208 470,208" marker-end="url(#arrow)"/>
         <path class="g-edge" data-e="notes disk" d="M610,62 L640,62" marker-end="url(#arrow)"/>
         <path class="g-edge" data-e="app log" d="M610,208 L640,208" marker-end="url(#arrow)"/>
-        <text class="g-label" x="156" y="52">sb …</text>
+        <text class="g-label" x="156" y="52">second_brain …</text>
         <text class="g-label" x="156" y="226">python -m …</text>
         <text class="g-label" x="398" y="50">notes logic</text>
         <text class="g-label" x="398" y="228">logging setup</text>
@@ -836,14 +836,14 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
   <div class="wrap">
     <span class="kicker">⑤ Settings</span>
     <h2 class="section-title">Knobs you can turn 🎚️</h2>
-    <p class="lede">Three environment variables control the app. Put them in <code>.env</code> and run <code>uv run --env-file .env sb …</code>, or set them inline.</p>
+    <p class="lede">Three environment variables control the app. Put them in <code>.env</code> and run <code>uv run --env-file .env second_brain …</code>, or set them inline.</p>
     <div class="knobs">
-      <div class="knob"><div class="ki">📁</div><h3>SECOND_BRAIN_DIR</h3><div class="def">default: <code>~/second_brain/</code></div><p>Where notes live. It's read fresh on every command, so <code>SECOND_BRAIN_DIR=/tmp/scratch sb list</code> just works.</p></div>
+      <div class="knob"><div class="ki">📁</div><h3>SECOND_BRAIN_DIR</h3><div class="def">default: <code>~/second_brain/</code></div><p>Where notes live. It's read fresh on every command, so <code>SECOND_BRAIN_DIR=/tmp/scratch second_brain list</code> just works.</p></div>
       <div class="knob"><div class="ki">🔊</div><h3>LOG_LEVEL</h3><div class="def">default: <code>INFO</code></div><p>How chatty stderr is. <code>DEBUG</code> shows the extra detail. Try the dropdown in the playground.</p></div>
       <div class="knob"><div class="ki">📜</div><h3>LOG_FILE</h3><div class="def">default: <code>app.log</code></div><p>Every DEBUG+ line also goes to this file. It rotates at 50 KB. The path is relative to wherever you run the command.</p></div>
     </div>
     <div class="streams">
-      <div class="stream o"><b>stdout 🟢</b><p>The <em>answer</em>: a note's path, the list, or a note's text. Safe to pipe: <code>sb show 1 | less</code></p></div>
+      <div class="stream o"><b>stdout 🟢</b><p>The <em>answer</em>: a note's path, the list, or a note's text. Safe to pipe: <code>second_brain show 1 | less</code></p></div>
       <div class="mid">⇄<small>two streams</small></div>
       <div class="stream e"><b>stderr 🩷</b><p>The <em>chatter</em>: compact log lines like <code>2026-10-25 09:12:00 | INF | second_brain.cli:new:60 | Created note: …</code></p></div>
     </div>
@@ -854,10 +854,10 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
 <footer>
   <div class="wrap">
     <div class="cheat">
-      <span class="pill">✏️ <code>sb new "…"</code></span>
-      <span class="pill">📋 <code>sb list</code></span>
-      <span class="pill">👀 <code>sb show N</code></span>
-      <span class="pill">❓ <code>sb COMMAND --help</code></span>
+      <span class="pill">✏️ <code>second_brain new "…"</code></span>
+      <span class="pill">📋 <code>second_brain list</code></span>
+      <span class="pill">👀 <code>second_brain show N</code></span>
+      <span class="pill">❓ <code>second_brain COMMAND --help</code></span>
     </div>
     <div>🧠 Happy note-taking!</div>
   </div>
@@ -878,20 +878,20 @@ footer .cheat { display: inline-flex; flex-wrap: wrap; gap: 8px; justify-content
 
   // ---------------------------------------------------------------- help texts (verbatim)
   const HELP = {
-    main: `Usage: sb [OPTIONS] COMMAND [ARGS]...
+    main: `Usage: second_brain [OPTIONS] COMMAND [ARGS]...
 
-  sb -- capture and organise your thoughts.
+  second_brain -- capture and organise your thoughts.
 
   Notes are plain markdown files, stored in the directory named by the
   SECOND_BRAIN_DIR environment variable (default: ~/second_brain/). Commands
   print their result on stdout; log lines go to stderr.
 
   Typical workflow:
-    sb new "Caching idea"     # save a note, prints its path
-    sb list                   # numbered list, newest first
-    sb show 1                 # print note 1
+    second_brain new "Caching idea"     # save a note, prints its path
+    second_brain list                   # numbered list, newest first
+    second_brain show 1                 # print note 1
 
-  Run \`sb COMMAND --help\` for details and examples.
+  Run \`second_brain COMMAND --help\` for details and examples.
 
 Options:
   --help  Show this message and exit.
@@ -900,7 +900,7 @@ Commands:
   list  List all notes in the notes directory.
   new   Create a new note with the given TITLE.
   show  Display the contents of note NUMBER.`,
-    new: `Usage: sb new [OPTIONS] TITLE
+    new: `Usage: second_brain new [OPTIONS] TITLE
 
   Create a new note with the given TITLE.
 
@@ -912,32 +912,32 @@ Commands:
   read the body from stdin.
 
   Examples:
-    sb new "Caching idea"
-    sb new "Caching idea" --body $'Use an LRU.\\n\\nCheck limits.'
-    cat draft.md | sb new "Draft" --body -
+    second_brain new "Caching idea"
+    second_brain new "Caching idea" --body $'Use an LRU.\\n\\nCheck limits.'
+    cat draft.md | second_brain new "Draft" --body -
 
 Options:
   -b, --body TEXT  Note body (multi-line). Use '-' to read it from stdin.
   --help           Show this message and exit.`,
-    list: `Usage: sb list [OPTIONS]
+    list: `Usage: second_brain list [OPTIONS]
 
   List all notes in the notes directory.
 
   Prints the notes directory, then one numbered line per note, newest first.
-  Use these numbers with \`sb show\`.
+  Use these numbers with \`second_brain show\`.
 
 Options:
   --help  Show this message and exit.`,
-    show: `Usage: sb show [OPTIONS] NUMBER
+    show: `Usage: second_brain show [OPTIONS] NUMBER
 
   Display the contents of note NUMBER.
 
-  NUMBER is the position shown by \`sb list\` (1 is the newest). Prints the
+  NUMBER is the position shown by \`second_brain list\` (1 is the newest). Prints the
   note's markdown on stdout. If the notes directory is missing, empty or
   NUMBER is out of range, an error goes to stderr and the exit status is 1.
 
   Example:
-    sb show 1
+    second_brain show 1
 
 Options:
   --help  Show this message and exit.`,
@@ -1049,7 +1049,7 @@ Options:
   function usageErr(cmd, msg) {
     const usage = cmd ? HELP[cmd].split("\n")[0] : HELP.main.split("\n")[0];
     err(usage);
-    err(`Try 'sb${cmd ? " " + cmd : ""} --help' for help.`);
+    err(`Try 'second_brain${cmd ? " " + cmd : ""} --help' for help.`);
     err("");
     err(`Error: ${msg}`);
     exit(2);
@@ -1076,10 +1076,9 @@ Options:
     if (t[0] === "uv" && t[1] === "run") t = t.slice(2);
     if (t[0] === "--env-file") t = t.slice(2);
     if (/^python3?$/.test(t[0]) && t[1] === "-m" && t[2] === "second_brain") t = t.slice(3);
-    else if (t[0] === "sb") t = t.slice(1);
-    else if (t[0] === "second_brain") { err("zsh: command not found: second_brain"); hint('It was renamed! The command is now "sb". Try: sb --help'); exit(127); return; }
-    else if (["new", "list", "show"].includes(t[0])) hint(`(psst: the real command is "sb ${t[0]} …", running it anyway)`);
-    else { err(`zsh: command not found: ${t[0]}`); hint('Commands start with "sb". Try: sb --help'); exit(127); return; }
+    else if (t[0] === "second_brain") t = t.slice(1);
+    else if (["new", "list", "show"].includes(t[0])) hint(`(psst: the real command is "second_brain ${t[0]} …", running it anyway)`);
+    else { err(`zsh: command not found: ${t[0]}`); hint('Commands start with "second_brain". Try: second_brain --help'); exit(127); return; }
 
     if (!t.length || t[0] === "--help") { HELP.main.split("\n").forEach(out); exit(0); return; }
     const [cmd, ...rest] = t;
@@ -1123,7 +1122,7 @@ Options:
     if (!state.dirExists) {
       log("WARNING", "list_notes:74", `Notes directory does not exist: ${DIR}`);
       out(`Notes directory does not exist: ${DIR}`);
-      hint("(make one by running: sb new \"…\")");
+      hint("(make one by running: second_brain new \"…\")");
       exit(0); return;
     }
     const files = sorted();
@@ -1171,8 +1170,8 @@ Options:
       const b = document.createElement("button");
       b.className = "file" + (name === state.fresh ? " fresh" : "");
       b.innerHTML = `<span class="n">${i + 1}</span><span><span class="fname">${esc(name)}</span><br><span class="fhead">${esc(heading) || "<i>(empty heading)</i>"}</span></span>`;
-      b.title = `sb show ${i + 1}`;
-      b.addEventListener("click", () => run(`sb show ${i + 1}`));
+      b.title = `second_brain show ${i + 1}`;
+      b.addEventListener("click", () => run(`second_brain show ${i + 1}`));
       filesEl.appendChild(b);
     });
     state.fresh = null;
@@ -1180,7 +1179,7 @@ Options:
 
   function greet() {
     screen.innerHTML = "";
-    hint("👋 Welcome! Try `sb --help`, or tap a chip below.");
+    hint("👋 Welcome! Try `second_brain --help`, or tap a chip below.");
     hint("   Green OUT = stdout (the answer). Pink ERR = stderr (logs & errors).");
   }
   document.getElementById("resetBtn").addEventListener("click", () => {
@@ -1258,7 +1257,7 @@ Options:
       peek: `<span class="cm"># nothing to see here 🙈</span>` },
     { id: "__main__", name: "__main__.py", depth: 2, icon: "▶️", lines: 4, color: "list",
       role: "Module entry point", path: "src/second_brain/__main__.py",
-      summary: "Lets you run the app as <code>python -m second_brain …</code>. It imports the Click group from <code>cli.py</code> and calls it. The <code>sb</code> command itself is wired up separately, in <code>pyproject.toml</code> under <code>[project.scripts]</code>, and points straight at <code>cli:cli</code>.",
+      summary: "Lets you run the app as <code>python -m second_brain …</code>. It imports the Click group from <code>cli.py</code> and calls it. The <code>second_brain</code> command itself is wired up separately, in <code>pyproject.toml</code> under <code>[project.scripts]</code>, and points straight at <code>cli:cli</code>.",
       pieces: [["cli()", "the only thing it calls"]],
       talks: [["cli", "imports cli"]],
       peek: `<span class="kw">from</span> second_brain.cli <span class="kw">import</span> cli
@@ -1267,7 +1266,7 @@ Options:
     <span class="fn">cli</span>()` },
     { id: "cli", name: "cli.py", depth: 2, icon: "🎛️", lines: 129, color: "new",
       role: "The front door", path: "src/second_brain/cli.py",
-      summary: "Defines the <code>sb</code> command and its three subcommands with Click. It's deliberately thin: read the arguments, ask <code>notes.py</code> to do the work, print the result to <b>stdout</b>, log what happened to <b>stderr</b>. All the <code>--help</code> text you saw above lives in the docstrings here.",
+      summary: "Defines the <code>second_brain</code> command and its three subcommands with Click. It's deliberately thin: read the arguments, ask <code>notes.py</code> to do the work, print the result to <b>stdout</b>, log what happened to <b>stderr</b>. All the <code>--help</code> text you saw above lives in the docstrings here.",
       pieces: [
         ["cli()", "the @click.group. Runs configure_logging() before any subcommand"],
         ["new(title, --body)", "reads stdin for --body -, calls create_note(), echoes the path"],
